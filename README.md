@@ -1,61 +1,83 @@
-# Laboratorio de cifrado GPG en entorno Kali Linux
+# GPG Asymmetric Encryption Lab (Kali Linux)
 
-Práctica realizada dentro del módulo **MF0489_3 – Criptografía y Comunicaciones Seguras**, del certificado de profesionalidad **IFCT0109 – Seguridad Informática (Nivel 3, SEPE)**, cursado en CEINA (abr. 2026 – jul. 2026).
+**Hands-on lab implementing asymmetric encryption, digital signatures, and key management with GnuPG, completed as part of module MF0489_3 — Cryptography and Secure Communications, within the IFCT0109 — Seguridad Informática (SEPE, Level 3) certification.**
 
-## Objetivo
+---
 
-Implementar un flujo completo de cifrado asimétrico con GPG (GNU Privacy Guard) para garantizar la confidencialidad, integridad y autenticidad de la información en un entorno de comunicaciones seguras, trabajando sobre una máquina virtual Kali Linux desplegada con VMware.
+## Overview
 
-## Entorno
+This lab implements a full asymmetric encryption workflow with [GnuPG](https://gnupg.org/) on a Kali Linux virtual machine: key pair generation, public key exchange, file encryption/decryption, digital signing and verification, and keyring management (import, export, revocation). The goal is to apply the theory behind public-key cryptography — confidentiality, integrity, authenticity, and the web of trust — as a hands-on, command-line exercise rather than through a GUI wrapper.
 
-- **Hipervisor:** VMware Workstation
-- **Sistema operativo:** Kali Linux
-- **Herramienta principal:** GnuPG (GPG)
+## Environment
 
-## Qué se ha hecho
+| Component | Detail |
+|---|---|
+| Hypervisor | VMware Workstation |
+| Operating system | Kali Linux |
+| Main tool | GnuPG (GPG) |
 
-1. **Generación de par de claves** (pública/privada) con `gpg --full-generate-key`.
-2. **Intercambio de claves públicas** para establecer un canal de confianza.
-3. **Cifrado y descifrado de ficheros** con `gpg --encrypt` / `gpg --decrypt`.
-4. **Firma digital** de ficheros (`gpg --sign`) y verificación (`gpg --verify`).
-5. **Gestión del keyring**: importación, exportación y revocación de claves.
+## Objective
 
-## Comandos clave utilizados
+Implement a complete asymmetric encryption flow with GPG to guarantee confidentiality, integrity, and authenticity of information in a secure communications scenario, working on a Kali Linux VM.
+
+## Methodology
+
+1. **Key pair generation** (public/private) with `gpg --full-generate-key`.
+2. **Public key exchange** to establish a trust channel between two parties.
+3. **File encryption/decryption** with `gpg --encrypt` / `gpg --decrypt`.
+4. **Digital signing** of files (`gpg --sign`) and **verification** (`gpg --verify`).
+5. **Keyring management**: import, export, and revocation of keys.
+
+## Commands used
 
 ```bash
-# Generar par de claves
+# Generate a key pair
 gpg --full-generate-key
 
-# Listar claves disponibles
+# List available keys
 gpg --list-keys
 gpg --list-secret-keys
 
-# Exportar clave pública
-gpg --export -a "nombre_usuario" > clave_publica.asc
+# Export a public key
+gpg --export -a "username" > public_key.asc
 
-# Importar clave pública de otro usuario
-gpg --import clave_publica.asc
+# Import another user's public key
+gpg --import public_key.asc
 
-# Cifrar un fichero para un destinatario
-gpg --encrypt --recipient "nombre_destinatario" fichero.txt
+# Encrypt a file for a recipient
+gpg --encrypt --recipient "recipient_name" file.txt
 
-# Descifrar un fichero recibido
-gpg --decrypt fichero.txt.gpg > fichero_descifrado.txt
+# Decrypt a received file
+gpg --decrypt file.txt.gpg > file_decrypted.txt
 
-# Firmar un fichero
-gpg --sign fichero.txt
+# Sign a file
+gpg --sign file.txt
 
-# Verificar una firma
-gpg --verify fichero.txt.gpg
+# Verify a signature
+gpg --verify file.txt.gpg
 ```
 
-## Conceptos aplicados
+## Concepts applied
 
-- Criptografía asimétrica (par de claves pública/privada)
-- Confidencialidad, integridad y autenticidad de la información
-- Web of trust / gestión de confianza entre claves
-- Buenas prácticas en comunicaciones seguras
+- Asymmetric cryptography (public/private key pair)
+- Confidentiality, integrity, and authenticity of information (CIA triad applied to communications)
+- Web of trust / key trust management
+- Secure communications best practices
+
+## What this demonstrates
+
+- Understanding of public-key cryptography fundamentals at the command line, without relying on a GUI wrapper.
+- Ability to reason about trust in a two-party exchange: why sharing the *public* key (never the private one) is what makes secure communication possible.
+- Familiarity with the full key lifecycle: generation → distribution → use (encrypt/sign) → verification → revocation.
+
+## Evidence gap — honest note
+
+This README documents the procedure and commands executed during the lab, but does not yet include captured terminal output (key fingerprints, an encrypted file sample, a `gpg --verify` result). Rather than fabricate example output, this is left as an open item: the single highest-value addition to this repo is a screenshot or pasted output of `gpg --list-keys` (showing the generated key pair) and of a successful `gpg --verify` run. That is what turns this from "documented procedure" into "proven execution."
+
+## Disclaimer
+
+All commands were executed inside a private, self-owned Kali Linux virtual machine, for training purposes only, as part of the IFCT0109 certification. No third-party systems or real recipients were involved.
 
 ---
-**Autor:** Bernat Marcet Claramunt
-**Contexto:** Práctica formativa — IFCT0109, CEINA
+
+**Bernat Marcet Claramunt** — IFCT0109, Seguridad Informática (SEPE, Nivel 3)
