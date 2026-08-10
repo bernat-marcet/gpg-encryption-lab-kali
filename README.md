@@ -70,10 +70,6 @@ gpg --verify file.txt.gpg
 - Ability to reason about trust in a two-party exchange: why sharing the *public* key (never the private one) is what makes secure communication possible.
 - Familiarity with the full key lifecycle: generation → distribution → use (encrypt/sign) → verification → revocation.
 
-## Evidence gap — honest note
-
-This README documents the procedure and commands executed during the lab, but does not yet include captured terminal output (key fingerprints, an encrypted file sample, a `gpg --verify` result). Rather than fabricate example output, this is left as an open item: the single highest-value addition to this repo is a screenshot or pasted output of `gpg --list-keys` (showing the generated key pair) and of a successful `gpg --verify` run. That is what turns this from "documented procedure" into "proven execution."
-
 ## Disclaimer
 
 All commands were executed inside a private, self-owned Kali Linux virtual machine, for training purposes only, as part of the IFCT0109 certification. No third-party systems or real recipients were involved.
